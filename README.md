@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a simple `file explorer`. It's created as recruitment task, example data is stored in `src/data.ts`.
 
 ## Getting Started
 
-First, run the development server:
+First, after cloning repo just install dependencies (you have to use newest node.js '>=18.17.0')
+
+After successfully installation, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To fire test just put in your terminal:
 
-## Learn More
+```bash
+npm run test
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Summary / Comments
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Due to time constraints related to my current position and family responsibilities, I was unable to complete all of the functionalities I had planned for the project.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Currently, the project allows for:
 
-## Deploy on Vercel
+Browsing folders and files
+Editing names
+Deleting
+Adding new items
+These functionalities are implemented using intuitive icons and buttons, providing a user-friendly experience.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Additional features that could be considered for future development include:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Filtering
+Real-file preview support (using node.js)
+While these features would enhance the application's functionality, they were not essential for the purposes of the recruitment task. I intentionally focused on the core functionalities to demonstrate my problem-solving skills, coding style, and approach to project planning.
+
+I am eager to discuss the application in more detail during an interview.
+
+Thank you for your time and consideration.
