@@ -1,17 +1,21 @@
-export type FileNode =
+export enum NodeType {
+  FILE = "file",
+  DIRECTORY = "directory",
+}
+
+export type Node =
   | {
-      type: "file";
+      type: NodeType.FILE;
       name: string;
       id: string;
     }
   | {
-      type: "directory";
+      type: NodeType.DIRECTORY;
       name: string;
       id: string;
-      children: FileNode[] | [];
+      children: Node[] | [];
     };
 
-// Unique ID generation (replace with your preferred implementation)
 export function generateUniqueId(): string {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0;
