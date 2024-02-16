@@ -15,11 +15,13 @@ import { NodeType } from "../utils";
 // Import other necessary components
 
 export function useAddDialog(
-  onSubmit: (data: {
-    name: string;
-    type: NodeType;
-    parentNodeId: string;
-  }) => void
+  onSubmit: (
+    parentNodeId: string,
+    data: {
+      name: string;
+      type: NodeType;
+    }
+  ) => void
 ) {
   const [open, setOpen] = useState<boolean>(false);
   const [parentNodeId, setParentNodeId] = useState<string>("");
@@ -38,7 +40,7 @@ export function useAddDialog(
   }, []);
 
   const handleSubmit = useCallback(() => {
-    onSubmit({ name, type, parentNodeId });
+    onSubmit(parentNodeId, { name, type });
     handleClose();
   }, [type, name, handleClose]);
 

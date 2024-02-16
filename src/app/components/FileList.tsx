@@ -21,14 +21,7 @@ import { useEditDialog } from "../hooks/useEditDialog";
 import { useDeleteDialog } from "../hooks/useDeleteDialog";
 
 const styles: Record<
-  | "root"
-  | "list"
-  | "icon"
-  | "item"
-  | "itemText"
-  | "itemIcon"
-  | "directoryItem"
-  | "collapseIcon",
+  "root" | "list" | "icon" | "item" | "itemText" | "itemIcon" | "directoryItem",
   SxProps
 > = {
   root: { display: "flex" },
@@ -47,35 +40,26 @@ const styles: Record<
     marginRight: "16px",
   },
   directoryItem: { m: "1px", p: "4px", pl: "32px", borderRadius: "6px" },
-  collapseIcon: {
-    marginLeft: "-14px",
-    position: "absolute",
-    lineHeight: "14px",
-  },
 };
 
 export function FileList(props: {
   items: Node[];
   sx?: SxProps;
   testId?: string;
+  addNode: (
+    parentNodeId: string,
+    data: {
+      name: string;
+      type: NodeType;
+    }
+  ) => void;
+  editNode: (data: { name: string; id: string }) => void;
+  deleteNode: (data: { id: string }) => void;
 }) {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
-  const addNode = (data: {
-    name: string;
-    type: NodeType;
-    parentNodeId: string;
-  }) => {
-    console.log(data);
-  };
-  const editNode = (data: { name: string; id: string }) => {
-    console.log(data);
-  };
-  const deleteNode = (data: { id: string }) => {
-    console.log(data);
-  };
-  const { addDialog, openAddDialog } = useAddDialog(addNode);
-  const { editDialog, openEditDialog } = useEditDialog(editNode);
-  const { deleteDialog, openDeleteDialog } = useDeleteDialog(deleteNode);
+  const { addDialog, openAddDialog } = useAddDialog(props.addNode);
+  const { editDialog, openEditDialog } = useEditDialog(props.editNode);
+  const { deleteDialog, openDeleteDialog } = useDeleteDialog(props.deleteNode);
 
   const handleItemClick = (item: Node) => () => {
     if (item.type === NodeType.DIRECTORY) {
@@ -103,7 +87,6 @@ export function FileList(props: {
     event.stopPropagation();
     openDeleteDialog(item);
   };
-
   return (
     <>
       <List data-testid={props.testId} sx={props.sx}>
@@ -141,7 +124,7 @@ export function FileList(props: {
                     sx={styles.item}
                     onClick={handleItemClick(item)}
                   >
-                    <Box sx={styles.collapseIcon}>
+                    <Box>
                       {expanded.has(item.id) ? (
                         <FolderOpenIcon sx={styles.icon} />
                       ) : (
@@ -152,11 +135,11 @@ export function FileList(props: {
                       primary={item.name}
                       primaryTypographyProps={{ sx: styles.itemText }}
                     />
-                    <IconButton onClick={handleEditClick(item)}>
-                      <EditIcon />
-                    </IconButton>
                     <IconButton onClick={handleAddClick(item.id)}>
                       <AddIcon />
+                    </IconButton>
+                    <IconButton onClick={handleEditClick(item)}>
+                      <EditIcon />
                     </IconButton>
                     <IconButton onClick={handleDeleteClick(item)}>
                       <RemoveIcon />
@@ -168,7 +151,13 @@ export function FileList(props: {
                     timeout="auto"
                     unmountOnExit
                   >
-                    <FileList items={item.children} sx={styles.list} />
+                    <FileList
+                      items={item.children}
+                      sx={styles.list}
+                      addNode={props.addNode}
+                      editNode={props.editNode}
+                      deleteNode={props.deleteNode}
+                    />
                   </Collapse>
                 </Box>
               );

@@ -37,7 +37,7 @@ export function useDeleteDialog(onSubmit: (data: { id: string }) => void) {
       <DialogContent>
         <Box sx={{ p: 2 }}>
           <DialogContentText>
-            Are you sure to delete {node?.name}?
+            Are you sure to delete <b>{node?.name}</b>?
           </DialogContentText>
           {node?.type === NodeType.DIRECTORY ? (
             <DialogContentText>

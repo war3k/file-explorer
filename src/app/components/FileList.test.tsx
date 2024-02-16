@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { FileList } from "./FileList";
 import { Node, NodeType } from "../utils";
 
+const mockFn = jest.fn();
 const sampleFiles: Node[] = [
   { type: NodeType.FILE, name: "file1.txt", id: "1" },
   {
@@ -18,7 +19,13 @@ const sampleFiles: Node[] = [
 
 test("renders list items for files and directories", () => {
   const { getByText, getByTestId } = render(
-    <FileList items={sampleFiles} testId="file-tree" />
+    <FileList
+      items={sampleFiles}
+      testId="file-tree"
+      addNode={mockFn}
+      editNode={mockFn}
+      deleteNode={mockFn}
+    />
   );
 
   expect(getByTestId("file-tree")).toBeInTheDocument();
@@ -27,7 +34,13 @@ test("renders list items for files and directories", () => {
 
 test("open and close collapse after click", async () => {
   const { queryByText, getByRole } = render(
-    <FileList items={sampleFiles} testId="file-tree" />
+    <FileList
+      items={sampleFiles}
+      testId="file-tree"
+      addNode={mockFn}
+      editNode={mockFn}
+      deleteNode={mockFn}
+    />
   );
   const folder = getByRole("button", { name: /Documents/i });
   expect(folder).toBeInTheDocument();
